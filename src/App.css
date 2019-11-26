@@ -1,6 +1,14 @@
 .App {
-  width: 60vw;
+  display: flex;
+}
+
+.wrapper {
+  width: 75vw;
   height: 80vh;
+  border: grey solid 3px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
 }
 
 .startDiv {
@@ -19,6 +27,16 @@ startBtn:active {
 .fruit,
 .screen {
   max-height: 200px;
+  max-width: 600px;
+}
+
+.fruit {
+  max-width: 150px;
+}
+
+.screen {
+  border: 2px solid darkgray;
+  margin: 10px auto;
 }
 
 
@@ -36,6 +54,12 @@ img {
 
 label {
   margin-right: 1rem;
+}
+
+.inputs {
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column;
 }
 
 

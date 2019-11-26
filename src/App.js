@@ -17,7 +17,7 @@ import './App.css';
 
 
 function App() {
-  const [images, setImages] = useState([
+  const [images, setIMAGES] = useState([
     {
       img: Banana,
       name: "Banana"
@@ -26,7 +26,6 @@ function App() {
       img: Cherry,
       name: "Cherry"
     },
-    
     {
       img: Grapes,
       name: "Grapes"
@@ -75,30 +74,96 @@ function App() {
       img: Fail,
       name: "Fail"
     },
-  ])
+  ]);
 
   const [screen, setScreen] = useState([Casino,Casino,Casino]);
 
   const [winner, setWinner] = useState(false);
 
+  const [balance, setBalance] = useState(500);
+
+  const [betAmount, setBetAmount] = useState(1);
+
+  const [factor, setFactor] = useState(2);
+
   const randomNum = () => {
     return Math.floor(Math.random()*8)
   }
 
+  const findWinnings = (num) => {
+    
+    switch (num) {
+       case 1:
+          setFactor(1);
+        break;
+        case 2:
+          setFactor(2);
+        break;
+        case 3:
+          setFactor(3);
+        break;
+        case 4:
+          setFactor(4);
+        break;
+        case 5:
+          setFactor(5);
+        break;
+        case 6:
+          setFactor(6);
+        break;
+        case 7:
+          setFactor(7);
+        break;
+        case 8:
+          setFactor(8);
+        break;
+        case 9:
+          setFactor(9);
+        break;
+        case 10:
+          setFactor(10);
+        break;
+
+    
+      default:
+        break;
+    }
+    setBalance(
+      balance + (betAmount*factor)
+    )
+    
+  }
+
+  const setAmount = (event) => {
+    setBetAmount(
+      event.target.value
+    )
+  }
+
   const setReels = () => {
-    if (winner == false) {
+    if (winner === false) {
+
+      setBalance(
+        balance - betAmount
+      )
         
       let num1 = randomNum();
       let num2 = randomNum();
       let num3 = randomNum();
 
       let newArray = [images[num1].img, images[num2].img, images[num3].img]
+
+
       
       setScreen(
         newArray
       )
 
-      if (num1 == num2 && num2 == num3) {
+      if (num1 === num2 && num2 === num3) {
+
+        findWinnings(num1);
+
+        
 
         setWinner(
           true
@@ -126,17 +191,24 @@ function App() {
 
   return (
     <div className="App">
-      <div className="screen">{screen.map((item)=> {
-        return <img className="fruit" src={item} />
-      })}</div>
-      <div className="startAndBalance">
-        <div>
-          <label>Balance</label>
-          <input readOnly></input>
+      <div className="wrapper">
+        <div className="screen">{screen.map((item)=> {
+          return <img className="fruit" src={item} />
+        })}</div>
+        <div className="startAndBalance">
+          <div className="inputs">
+            <div>
+              <label>Balance</label>
+              <input value={balance} readOnly></input>
+            </div>
+            <div>
+              <label>Bet Amount</label>
+              <input onChange={setAmount}></input>
+            </div>
+          </div>
+          <a href="#" className="startBtn" onClick={()=>setReels()}><div className="startDiv"><img src={Start} /></div></a>
         </div>
-        <a className="startBtn" onClick={()=>{setReels()}}><div className="startDiv"><img src={Start} /></div></a>
-      </div>
-      
+      </div>  
     </div>
   );
 }
